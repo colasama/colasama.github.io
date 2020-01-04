@@ -20,7 +20,7 @@ webtitle: 'https://blog.colanns.me'
 bio: '惹'
 about: true
 aboutyou: '密大大学生'
-portraits: '/assets/profile.jpeg' # your portraits image file path
+portraits: '/assets/profile.jpg' # your portraits image file path
 
 # SNS
 SNS: true
