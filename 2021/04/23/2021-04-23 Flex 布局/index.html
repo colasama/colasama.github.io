@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="Flex 布局Flex 布局简介Flex 布局（Flexible Box）是在 CSS3 中新增加的一种布局模式，是一种一维的布局模型，旨在提供一种更加有效的方式来对一个容器中的子元素进行排列对齐，确保页面可以适应不同的屏幕大小。 弹性盒由弹性容器和弹性元素组成，在 Flex 布局模型中，弹性元素可以在任何方向上排布，它们的尺寸也可以弹性伸缩，既可以增加尺寸以填满未使用的空间，也可以收缩尺寸以避免">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Flex 布局">
+<meta property="og:url" content="http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:site_name" content="Colanns&#39; Blog">
+<meta property="og:description" content="Flex 布局Flex 布局简介Flex 布局（Flexible Box）是在 CSS3 中新增加的一种布局模式，是一种一维的布局模型，旨在提供一种更加有效的方式来对一个容器中的子元素进行排列对齐，确保页面可以适应不同的屏幕大小。 弹性盒由弹性容器和弹性元素组成，在 Flex 布局模型中，弹性元素可以在任何方向上排布，它们的尺寸也可以弹性伸缩，既可以增加尺寸以填满未使用的空间，也可以收缩尺寸以避免">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319145109322.png">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319145528783.png">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319145649396.png">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319145829345.png">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319150044202.png">
+<meta property="article:published_time" content="2021-04-23T18:56:43.000Z">
+<meta property="article:modified_time" content="2022-10-19T08:19:04.250Z">
+<meta property="article:author" content="Colanns">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319145109322.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Flex 布局</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Colanns&#39; Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="icons.top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2021/04/25/2021-04-25%20Cookie,%20LocalStorage%20%E4%B8%8E%20SessionStorage/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2021/04/22/2021-04-22%20%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%E4%B8%8E%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&text=Flex 布局"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&is_video=false&description=Flex 布局"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Flex 布局&body=Check out this article: http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&name=Flex 布局&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&t=Flex 布局"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Flex-%E5%B8%83%E5%B1%80"><span class="toc-number">1.</span> <span class="toc-text">Flex 布局</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flex-%E5%B8%83%E5%B1%80%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">Flex 布局简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">弹性容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BE%97%E5%88%B0%E5%BC%B9%E6%80%A7%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">如何得到弹性容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.</span> <span class="toc-text">弹性容器相关的一些属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E5%85%83%E7%B4%A0"><span class="toc-number">1.3.</span> <span class="toc-text">弹性元素</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Flex 布局
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Colanns</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-04-23T18:56:43.000Z" itemprop="datePublished">2021-04-23</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CSS/" rel="tag">CSS</a>, <a class="tag-link-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Flex-布局"><a href="#Flex-布局" class="headerlink" title="Flex 布局"></a>Flex 布局</h1><h2 id="Flex-布局简介"><a href="#Flex-布局简介" class="headerlink" title="Flex 布局简介"></a>Flex 布局简介</h2><p>Flex 布局（Flexible Box）是在 CSS3 中新增加的一种布局模式，是一种一维的布局模型，旨在提供一种更加有效的方式来对一个容器中的子元素进行排列对齐，确保页面可以适应不同的屏幕大小。</p>
+<p>弹性盒由弹性容器和弹性元素组成，在 Flex 布局模型中，弹性元素可以在任何方向上排布，它们的尺寸也可以弹性伸缩，既可以增加尺寸以填满未使用的空间，也可以收缩尺寸以避免父元素溢出。子元素的水平对齐和垂直对齐都可以很方便地进行操控，也可以通过水平框和垂直框的嵌套来在两个维度上构建布局。一个含有三个<div>块的<div>容器使用了 Flex 布局前后的样式变化如下图所示，右边是应用 Flex 布局之后的样式。</p>
+<p><img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319145109322.png" alt="image-20220319145109322"></p>
+<p>此外，在弹性盒之外以及弹性元素之内的元素是正常渲染的，弹性盒子只定义了弹性元素在弹性容器内的布局。</p>
+<h2 id="弹性容器"><a href="#弹性容器" class="headerlink" title="弹性容器"></a>弹性容器</h2><h3 id="如何得到弹性容器"><a href="#如何得到弹性容器" class="headerlink" title="如何得到弹性容器"></a>如何得到弹性容器</h3><p>我们一般通过将父元素的 <code>display</code> 属性设置为 <code>flex</code> 或者 <code>inline-flex</code> 来设置弹性容器，二者的区别在于前者是 <code>block</code> 而后者是<code> inline-block</code>。在经过对 <code>display</code> 进行设置之后，我们就得到了一个弹性容器，容器内的元素将会变为弹性元素，此时，所有的弹性元素的 CSS 都会有一个初始值，它们会具有以下特性：</p>
+<ul>
+<li><p>元素排列为一行。</p>
+</li>
+<li><p>元素从主轴的起始线开始（主轴和交叉轴的知识将会在下面介绍）。</p>
+</li>
+<li><p>元素不会在主维度方向拉伸，但是可以缩小。</p>
+</li>
+<li><p>在交叉轴方向，元素若不指定高度则会被拉伸。</p>
+</li>
+<li><p><code>flex-basis</code> 属性为<code>auto</code>。</p>
+</li>
+<li><p><code>flex-warp</code> 属性为 <code>nowarp</code>。</p>
+</li>
+</ul>
+<h3 id="弹性容器相关的一些属性"><a href="#弹性容器相关的一些属性" class="headerlink" title="弹性容器相关的一些属性"></a>弹性容器相关的一些属性</h3><ul>
+<li><code>flex-direction</code></li>
+</ul>
+<p>对于弹性布局来说，我们首先要理解两个轴线：主轴和交叉轴，两根轴线呈垂直关系。flex-direction用于定义主轴，主轴指定了弹性容器中子元素的排列方式，决定了他们的排列方向，共有以下四种取值：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-container</span> &#123; </span><br><span class="line">    <span class="attribute">flex-direction</span>: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>row</code> 默认值，主轴水平，元素将水平从左到右显示。</p>
+</li>
+<li><p><code>row-reverse</code> 与 <code>row</code> 相同，但是从右到左显示。</p>
+</li>
+<li><p><code>column</code> 主轴垂直，元素将从上到下显示。</p>
+</li>
+<li><p><code>column-reverse</code> 与 <code>column</code> 相同，但是从下到上显示。</p>
+</li>
+</ul>
+<p>具体不同方向如下图所示。</p>
+<p> <img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319145528783.png" alt="image-20220319145528783"></p>
+<p>交叉轴则是与主轴垂直的轴，默认情况下，元素会延展至交叉轴的末尾。</p>
+<ul>
+<li><code>flex-wrap</code></li>
+</ul>
+<p>在初始的时候，我们的弹性盒只有一行，这就造成了默认情况下子元素会缩小以适应容器，有的时候，只有一行的弹性盒会为我们带来很多不便，这时我们就可以修改容器的 <code>flex-wrap</code> 属性。</p>
+<p><code>flex-wrap</code> 共有三个取值：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-container</span> &#123; </span><br><span class="line">	<span class="attribute">flex-wrap</span>: nowrap | wrap | wrap-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当 <code>flex-wrap</code> 属性为 <code>wrap</code> 的时候，若弹性容器的宽度小于弹性元素的总宽度，子元素就无法全部显示在一行里，就会发生自动换行。当三个宽度为 180px 的<div>块在一个宽度为400px的<div>块中，下图即为将 <code>flex-wrap</code> 属性设置为 <code>wrap</code> 的时候所发生的变化。</p>
+<p><img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319145649396.png" alt="image-20220319145649396"></p>
+<ul>
+<li><code>flex-flow</code></li>
+</ul>
+<p><code>flex-flow</code> 属性是以上两个属性的简写，第一个指定的值为 <code>flex-direction</code>，第二个指定的值为 <code>flex-wrap</code>。</p>
+<ul>
+<li><code>align-items</code></li>
+</ul>
+<p><code>align-items</code> 主要用来设置交叉轴方向上的对齐方式。以下五个参数分别是从交叉轴起始位置开始放置子元素、从交叉轴终止位置开始放置子元素、子元素居中对齐、子元素基线对齐、子元素拉伸占据剩余空间。默认值是 <code>flex-start</code>，即交叉轴起始位置开始放置子元素。几种对齐方式如下所示，顺序与下列代码中参数顺序等同。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-container</span> &#123; </span><br><span class="line">    <span class="attribute">align-items</span>: flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319145829345.png" alt="image-20220319145829345"></p>
+<ul>
+<li><code>align-content</code></li>
+</ul>
+<p><code>align-content</code> 与 <code>align-items</code> 几乎等同，但是<code>align-content</code> 是操作多行的，对单行弹性盒模型无效（即含有 <code>flex-wrap: nowrap</code> 的弹性盒模型）。除此之外，还多出两个可选值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-container</span> &#123; </span><br><span class="line">	<span class="attribute">align-content</span>: flex-start | flex-end | center | baseline | stretch | space-between | space-around;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>space-between</code> 的效果是，有多余的空间就会平均分布，每个子元素的两边空白保持一致，头尾子元素贴在边缘。</p>
+<p><code>space-around</code> 的效果是，有多余的空间就会平均分布，每个子元素的两边空白保持一致，头尾子元素不会贴在边缘。</p>
+<ul>
+<li><code>justify-content</code></li>
+</ul>
+<p><code>justify-content</code> 设置的是在主轴方向上的对齐方式，其他与 <code>align-items</code> 没有什么不同的地方。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-container</span> &#123; </span><br><span class="line">	<span class="attribute">justify-content</span>: flex-start | flex-end | center | space-between | space-around;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总体来说，对于一个弹性容器，有以下几种属性可以设置。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>flex-direction</code></td>
+<td>指定弹性容器中子元素排列方式</td>
+</tr>
+<tr>
+<td><code>flex-wrap</code></td>
+<td>设置弹性盒子的子元素超出父容器时是否换行</td>
+</tr>
+<tr>
+<td><code>flex-flow</code></td>
+<td><code>flex-direction</code>  和 <code>flex-wrap</code> 的简写</td>
+</tr>
+<tr>
+<td><code>align-items</code></td>
+<td>设置弹性盒子元素在交叉轴方向上的对齐方式</td>
+</tr>
+<tr>
+<td><code>align-content</code></td>
+<td>修改 <code>flex-wrap</code> 属性的行为，类似 <code>align-items</code>, 但不是设置子元素对齐，而是设置行对齐</td>
+</tr>
+<tr>
+<td><code>justify-content</code></td>
+<td>设置弹性盒子元素在主轴方向上的对齐方式</td>
+</tr>
+</tbody></table>
+<h2 id="弹性元素"><a href="#弹性元素" class="headerlink" title="弹性元素"></a>弹性元素</h2><p>为了更好地控制弹性元素的显示，我们可以对弹性元素的以下几种属性进行更改。在考虑对属性进行更改之前，我们首先要明白什么是可用空间，因为以下的前三个重要属性的主要作用就是对可用空间进行了更改。如图所示，当一个容器承载 3 个宽度为 100px 的元素时，可用空间即为 200px。</p>
+<p><img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220319150044202.png" alt="image-20220319150044202"></p>
+<p>在我们对 <code>flex</code> 的三个属性进行更改的时候，本质上其实就是控制可用空间在这几个元素之间的分配。在理解了这一点之后，让我们来具体研究一下这些元素的属性。</p>
+<ul>
+<li><code>flex-basis</code></li>
+</ul>
+<p><code>flex-basis</code> 属性定义了这个子元素的空间大小，该属性的默认值是 <code>auto</code> ，如果元素设定了宽度的话，<code>flex-basis</code> 的值将会为它的宽度，上图中，由于元素 a 设定了宽度为 100px，则它的 <code>flex-basis</code> 值即为 100px。</p>
+<p>若将 <code>flex-basis</code> 和 <code>width</code> 一起设置，则 <code>flex-basis</code> 会决定元素宽度的最小值，<code>width</code> 则会决定元素宽度的最大值。</p>
+<ul>
+<li><code>flex-grow</code></li>
+</ul>
+<p><code>flex-grow</code> 属性的默认值为 0，也就是不支持扩展。若设置为正整数（不支持负值），则会以 <code>flex-basis</code> 为基础沿主轴方向增长并且占据可用空间。</p>
+<p><code>flex-grow</code> 允许元素按照比例来分配空间。如果第一个元素的 <code>flex-grow</code> 值为 1，第二个为 2，第三个为 1，则第二个元素将会占可用空间的 2&#x2F;4，另外的元素则会占据 1&#x2F;4 的空间。</p>
+<ul>
+<li><code>flex-shrink</code></li>
+</ul>
+<p> <code>flex-shrink</code> 与 <code>flex-grow</code> 相对，主要用来处理弹性元素在主轴上收缩的问题，它的默认值为 1。如果弹性容器中排列弹性元素的空间不足，则可以将 <code>flex-shrink</code> 属性设置为正整数，这样它所占有的空间就会缩小到 <code>flex-basis</code> 以下，它和 <code>flex-grow</code> 一样，也是按比例缩小的，数值越大，这个元素收缩的程度越大。</p>
+<ul>
+<li><code>flex</code></li>
+</ul>
+<p><code>flex</code> 属性是 <code>flex-grow</code> 、 <code>flex-shrink</code> 和 <code>flex-basis</code> 属性的简写，相比于三个属性分别使用，我们在开发的时候更倾向于使用单独的 <code>flex</code> 属性来制定其他三个属性。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-container</span> <span class="selector-class">.flex-item</span> &#123; </span><br><span class="line">    <span class="attribute">flex</span>: flex-grow flex-shrink flex-basis | auto | initial | inherit; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> <code>flex</code> 有几个预定义的属性，如下所示：</p>
+<ul>
+<li><p><code>initial</code>: 相当于 <code>0 1 auto</code>， <code>flex</code> 元素尺寸不会超过 <code>flex-basis</code>，但是会收缩来防止元素溢出。</p>
+</li>
+<li><p><code>auto</code>: 相当于 <code>1 1 auto</code>，与 <code>initial</code> 唯一的不同是，它可以拉伸也可以收缩。</p>
+</li>
+<li><p><code>none</code>: 相当于 <code>0 0 auto</code>，它是不可伸缩的。</p>
+</li>
+<li><p>正整数: 相当于 <code>1 1 0</code>，可以在 <code>flex-basis</code> 为 0 的基础上进行伸缩。</p>
+</li>
+<li><p><code>order</code></p>
+</li>
+</ul>
+<p><code>order</code> 的值为一个数值，可以用来决定弹性元素的排列顺序，数值越小越靠前。</p>
+<ul>
+<li><code>align-self</code></li>
+</ul>
+<p><code>align-self</code> 属性可以为子元素单独设置对齐方式，默认值是 <code>auto</code>，它的优先级高于父容器的 <code>align-items</code>，所以会替代掉父容器的值。但是如果 <code>align-self</code> 和父容器的 <code>align-content</code> 同时存在，则会采用父容器的 <code>align-content</code> 值。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.flex-container</span> &#123; </span><br><span class="line">	<span class="attribute">align-items</span>: auto | flex-start | flex-end | center | baseline | stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>弹性元素属性如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>order</code></td>
+<td>设置弹性盒子的子元素排列顺序。</td>
+</tr>
+<tr>
+<td><code>flex-grow</code></td>
+<td>设置或检索弹性盒子元素的扩展比率。</td>
+</tr>
+<tr>
+<td><code>flex-shrink</code></td>
+<td>指定了 <code>flex</code> 元素的收缩规则。<code>flex</code> 元素仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据   <code>flex-shrink</code>  的值。</td>
+</tr>
+<tr>
+<td><code>flex-basis</code></td>
+<td>用于设置或检索弹性盒伸缩基准值。</td>
+</tr>
+<tr>
+<td><code>flex</code></td>
+<td>设置弹性盒子的子元素如何分配空间。</td>
+</tr>
+<tr>
+<td><code>align-self</code></td>
+<td>在弹性子元素上使用。覆盖容器的 <code>align-items</code> 属性。</td>
+</tr>
+</tbody></table>
+
+  </div>
+</article>
+
+
+    <div class="blog-post-comments">
+        <div id="utterances_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects/">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Flex-%E5%B8%83%E5%B1%80"><span class="toc-number">1.</span> <span class="toc-text">Flex 布局</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Flex-%E5%B8%83%E5%B1%80%E7%AE%80%E4%BB%8B"><span class="toc-number">1.1.</span> <span class="toc-text">Flex 布局简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.</span> <span class="toc-text">弹性容器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%BE%97%E5%88%B0%E5%BC%B9%E6%80%A7%E5%AE%B9%E5%99%A8"><span class="toc-number">1.2.1.</span> <span class="toc-text">如何得到弹性容器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E5%AE%B9%E5%99%A8%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B1%9E%E6%80%A7"><span class="toc-number">1.2.2.</span> <span class="toc-text">弹性容器相关的一些属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%B9%E6%80%A7%E5%85%83%E7%B4%A0"><span class="toc-number">1.3.</span> <span class="toc-text">弹性元素</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&text=Flex 布局"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&is_video=false&description=Flex 布局"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Flex 布局&body=Check out this article: http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&title=Flex 布局"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&name=Flex 布局&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2021/04/23/2021-04-23%20Flex%20%E5%B8%83%E5%B1%80/&t=Flex 布局"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2022
+    Colanns
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRKJ8VL35F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GRKJ8VL35F');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "accaef8c611f45e6acc7495a8b1ba32c"}'></script>
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+    <script type="text/javascript">
+      var utterances_repo = 'colasama/Colanns-Blog-Comments';
+      var utterances_issue_term = 'pathname';
+      var utterances_label = 'Comment';
+      var utterances_theme = 'github-dark';
+
+      (function(){
+          var script = document.createElement('script');
+
+          script.src = 'https://utteranc.es/client.js';
+          script.setAttribute('repo', utterances_repo);
+          script.setAttribute('issue-term', 'pathname');
+          script.setAttribute('label', utterances_label);
+          script.setAttribute('theme', utterances_theme);
+          script.setAttribute('crossorigin', 'anonymous');
+          script.async = true;
+          (document.getElementById('utterances_thread')).appendChild(script);
+      }());
+  </script>
+
+</body>
+</html>

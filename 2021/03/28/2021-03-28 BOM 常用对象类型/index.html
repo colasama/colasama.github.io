@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="浏览器对象模型 BOM（Browser Object Model）允许 JavaScript 直接与浏览器进行交互，在 JavaScript 中定义了 6 种重要的对象：  Window 对象 Document 对象 Location 对象 Navigation 对象 Screen 对象 History 对象  其中，其他所有对象都是 Window 对象的一部分。 Window 对象Window">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BOM 常用对象类型笔记">
+<meta property="og:url" content="http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Colanns&#39; Blog">
+<meta property="og:description" content="浏览器对象模型 BOM（Browser Object Model）允许 JavaScript 直接与浏览器进行交互，在 JavaScript 中定义了 6 种重要的对象：  Window 对象 Document 对象 Location 对象 Navigation 对象 Screen 对象 History 对象  其中，其他所有对象都是 Window 对象的一部分。 Window 对象Window">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-28T21:46:22.000Z">
+<meta property="article:modified_time" content="2022-10-19T08:19:04.250Z">
+<meta property="article:author" content="Colanns">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="HTML">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>BOM 常用对象类型笔记</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Colanns&#39; Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="icons.top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2021/04/22/2021-04-22%20%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8%E4%B8%8E%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2021/01/01/2021-01-01%20Nebula%20%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&text=BOM 常用对象类型笔记"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&is_video=false&description=BOM 常用对象类型笔记"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BOM 常用对象类型笔记&body=Check out this article: http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&name=BOM 常用对象类型笔记&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&t=BOM 常用对象类型笔记"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Window-%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text">Window 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Document-%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.</span> <span class="toc-text">Document 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Navigator-%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.</span> <span class="toc-text">Navigator 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Location-%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.</span> <span class="toc-text">Location 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Screen%E5%AF%B9%E8%B1%A1"><span class="toc-number">5.</span> <span class="toc-text">Screen对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#History-%E5%AF%B9%E8%B1%A1"><span class="toc-number">6.</span> <span class="toc-text">History 对象</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        BOM 常用对象类型笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Colanns</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-03-28T21:46:22.000Z" itemprop="datePublished">2021-03-28</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/HTML/" rel="tag">HTML</a>, <a class="tag-link-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>浏览器对象模型 BOM（Browser Object Model）允许 JavaScript 直接与浏览器进行交互，在 JavaScript 中定义了 6 种重要的对象：</p>
+<ul>
+<li>Window 对象</li>
+<li>Document 对象</li>
+<li>Location 对象</li>
+<li>Navigation 对象</li>
+<li>Screen 对象</li>
+<li>History 对象</li>
+</ul>
+<p>其中，其他所有对象都是 Window 对象的一部分。</p>
+<h2 id="Window-对象"><a href="#Window-对象" class="headerlink" title="Window 对象"></a>Window 对象</h2><p>Window 对象是 BOM 的核心，表示当前的浏览器窗口。主要提供调整窗口的尺寸和位置、打开新窗口、系统提示框、状态栏控制、定时操作等功能。具体请参考表格。</p>
+<p>使用 window 对象的属性和方法不需要特别的指明。如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">alert</span>(<span class="string">&quot;Alert.&quot;</span>);</span><br><span class="line"><span class="variable language_">window</span>.<span class="title function_">alert</span>(<span class="string">&quot;Alert.&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>两种调用方式等价，第二种是第一种调用的完整写法。</p>
+<p>Window 对象的属性表</p>
+<table>
+<thead>
+<tr>
+<th><strong>属性名</strong></th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>指定窗口的名称</td>
+</tr>
+<tr>
+<td>parent</td>
+<td>当前窗口（框架）的父窗口，使用它返回对象的方法和属性</td>
+</tr>
+<tr>
+<td>opener</td>
+<td>返回产生当前窗口的窗口对象，使用它返回对象的方法和属性</td>
+</tr>
+<tr>
+<td>top</td>
+<td>代表主窗口，是最顶层的窗口，也是所有其他窗口的父窗口。可通过该对象访问当前窗口的方法和属性</td>
+</tr>
+<tr>
+<td>self</td>
+<td>返回当前窗口的一个对象，可通过该对象访问当前窗口的方法和属性</td>
+</tr>
+<tr>
+<td>defaultstatus</td>
+<td>返回或设置将在浏览器状态栏中显示的默认内容</td>
+</tr>
+<tr>
+<td>status</td>
+<td>返回或设置将在浏览器状态栏中显示的指定内容</td>
+</tr>
+</tbody></table>
+<p>Window 对象的方法表</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alert()</td>
+<td>显示一个警示对话框，包含一条信息和一个确定按钮</td>
+</tr>
+<tr>
+<td>confirm()</td>
+<td>显示一个确认对话框</td>
+</tr>
+<tr>
+<td>prompt()</td>
+<td>显示一个提示对话框，提示用户输入数据</td>
+</tr>
+<tr>
+<td>open()</td>
+<td>打开一个已存在的窗口，或者创建一个新窗口，并在该窗口中加载一个文档</td>
+</tr>
+<tr>
+<td>close()</td>
+<td>关闭一个打开的窗口</td>
+</tr>
+<tr>
+<td>navigate()</td>
+<td>在当前窗口中显示指定网页</td>
+</tr>
+<tr>
+<td>setTimeout()</td>
+<td>设置一个定时器，在经过指定的时间间隔后调用一个函数</td>
+</tr>
+<tr>
+<td>clearTimeout()</td>
+<td>给指定的计时器复位</td>
+</tr>
+<tr>
+<td>focus()</td>
+<td>使一个Window对象得到当前焦点</td>
+</tr>
+<tr>
+<td>blur()</td>
+<td>使一个Window对象失去当前焦点</td>
+</tr>
+</tbody></table>
+<p>Window 对象的事件表</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onload</td>
+<td>HTML文件载入浏览器时发生</td>
+</tr>
+<tr>
+<td>onunload</td>
+<td>HTML文件从浏览器删除时发生</td>
+</tr>
+<tr>
+<td>onfocus</td>
+<td>窗口获得焦点时发生</td>
+</tr>
+<tr>
+<td>onblur</td>
+<td>窗口失去焦点时发生</td>
+</tr>
+<tr>
+<td>onhelp</td>
+<td>用户按下F1键时发生</td>
+</tr>
+<tr>
+<td>onresize</td>
+<td>用户调整窗口大小时发生</td>
+</tr>
+<tr>
+<td>onscroll</td>
+<td>用户滚动窗口时发生</td>
+</tr>
+<tr>
+<td>onerror</td>
+<td>载入HTML文件出错时发生</td>
+</tr>
+</tbody></table>
+<h2 id="Document-对象"><a href="#Document-对象" class="headerlink" title="Document 对象"></a>Document 对象</h2><p>当浏览器载入 HTML 文档，它就会成为 Document 对象，载入之后的 Document 对象是 HTML 文档的根节点。</p>
+<p>Document 对象的存在让我们可以使用 JavaScript 访问并操作 HTML 页面中的所有元素。</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性 &#x2F; 方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">document.activeElement</td>
+<td align="left">返回当前获取焦点元素</td>
+</tr>
+<tr>
+<td align="left">document.addEventListener()</td>
+<td align="left">向文档添加句柄</td>
+</tr>
+<tr>
+<td align="left">document.adoptNode(node)</td>
+<td align="left">从另外一个文档返回 adapded 节点到当前文档。</td>
+</tr>
+<tr>
+<td align="left">document.anchors</td>
+<td align="left">返回对文档中所有 Anchor 对象的引用。</td>
+</tr>
+<tr>
+<td align="left">document.baseURI</td>
+<td align="left">返回文档的绝对基础 URI</td>
+</tr>
+<tr>
+<td align="left">document.body</td>
+<td align="left">返回文档的body元素</td>
+</tr>
+<tr>
+<td align="left">document.close()</td>
+<td align="left">关闭用 document.open() 方法打开的输出流，并显示选定的数据。</td>
+</tr>
+<tr>
+<td align="left">document.cookie</td>
+<td align="left">设置或返回与当前文档有关的所有 cookie。</td>
+</tr>
+<tr>
+<td align="left">document.createAttribute()</td>
+<td align="left">创建一个属性节点</td>
+</tr>
+<tr>
+<td align="left">document.createComment()</td>
+<td align="left">createComment() 方法可创建注释节点。</td>
+</tr>
+<tr>
+<td align="left">document.createDocumentFragment()</td>
+<td align="left">创建空的 DocumentFragment 对象，并返回此对象。</td>
+</tr>
+<tr>
+<td align="left">document.createElement()</td>
+<td align="left">创建元素节点。</td>
+</tr>
+<tr>
+<td align="left">document.createTextNode()</td>
+<td align="left">创建文本节点。</td>
+</tr>
+<tr>
+<td align="left">document.doctype</td>
+<td align="left">返回与文档相关的文档类型声明 (DTD)。</td>
+</tr>
+<tr>
+<td align="left">document.documentElement</td>
+<td align="left">返回文档的根节点</td>
+</tr>
+<tr>
+<td align="left">document.documentMode</td>
+<td align="left">返回用于通过浏览器渲染文档的模式</td>
+</tr>
+<tr>
+<td align="left">document.documentURI</td>
+<td align="left">设置或返回文档的位置</td>
+</tr>
+<tr>
+<td align="left">document.domain</td>
+<td align="left">返回当前文档的域名。</td>
+</tr>
+<tr>
+<td align="left">document.domConfig</td>
+<td align="left"><strong>已废弃</strong>。返回 normalizeDocument() 被调用时所使用的配置。</td>
+</tr>
+<tr>
+<td align="left">document.embeds</td>
+<td align="left">返回文档中所有嵌入的内容（embed）集合</td>
+</tr>
+<tr>
+<td align="left">document.forms</td>
+<td align="left">返回对文档中所有 Form 对象引用。</td>
+</tr>
+<tr>
+<td align="left">document.getElementsByClassName()</td>
+<td align="left">返回文档中所有指定类名的元素集合，作为 NodeList 对象。</td>
+</tr>
+<tr>
+<td align="left">document.getElementById()</td>
+<td align="left">返回对拥有指定 id 的第一个对象的引用。</td>
+</tr>
+<tr>
+<td align="left">document.getElementsByName()</td>
+<td align="left">返回带有指定名称的对象集合。</td>
+</tr>
+<tr>
+<td align="left">document.getElementsByTagName()</td>
+<td align="left">返回带有指定标签名的对象集合。</td>
+</tr>
+<tr>
+<td align="left">document.images</td>
+<td align="left">返回对文档中所有 Image 对象引用。</td>
+</tr>
+<tr>
+<td align="left">document.implementation</td>
+<td align="left">返回处理该文档的 DOMImplementation 对象。</td>
+</tr>
+<tr>
+<td align="left">document.importNode()</td>
+<td align="left">把一个节点从另一个文档复制到该文档以便应用。</td>
+</tr>
+<tr>
+<td align="left">document.inputEncoding</td>
+<td align="left">返回用于文档的编码方式（在解析时）。</td>
+</tr>
+<tr>
+<td align="left">document.lastModified</td>
+<td align="left">返回文档被最后修改的日期和时间。</td>
+</tr>
+<tr>
+<td align="left">document.links</td>
+<td align="left">返回对文档中所有 Area 和 Link 对象引用。</td>
+</tr>
+<tr>
+<td align="left">document.normalize()</td>
+<td align="left">删除空文本节点，并连接相邻节点</td>
+</tr>
+<tr>
+<td align="left">document.normalizeDocument()</td>
+<td align="left">删除空文本节点，并连接相邻节点的</td>
+</tr>
+<tr>
+<td align="left">document.open()</td>
+<td align="left">打开一个流，以收集来自任何 document.write() 或 document.writeln() 方法的输出。</td>
+</tr>
+<tr>
+<td align="left">document.querySelector()</td>
+<td align="left">返回文档中匹配指定的CSS选择器的第一元素</td>
+</tr>
+<tr>
+<td align="left">document.querySelectorAll()</td>
+<td align="left">document.querySelectorAll() 是 HTML5中引入的新方法，返回文档中匹配的CSS选择器的所有元素节点列表</td>
+</tr>
+<tr>
+<td align="left">document.readyState</td>
+<td align="left">返回文档状态 (载入中……)</td>
+</tr>
+<tr>
+<td align="left">document.referrer</td>
+<td align="left">返回载入当前文档的文档的 URL。</td>
+</tr>
+<tr>
+<td align="left">document.removeEventListener()</td>
+<td align="left">移除文档中的事件句柄(由 addEventListener() 方法添加)</td>
+</tr>
+<tr>
+<td align="left">document.renameNode()</td>
+<td align="left">重命名元素或者属性节点。</td>
+</tr>
+<tr>
+<td align="left">document.scripts</td>
+<td align="left">返回页面中所有脚本的集合。</td>
+</tr>
+<tr>
+<td align="left">document.strictErrorChecking</td>
+<td align="left">设置或返回是否强制进行错误检查。</td>
+</tr>
+<tr>
+<td align="left">document.title</td>
+<td align="left">返回当前文档的标题。</td>
+</tr>
+<tr>
+<td align="left">document.URL</td>
+<td align="left">返回文档完整的URL</td>
+</tr>
+<tr>
+<td align="left">document.write()</td>
+<td align="left">向文档写 HTML 表达式 或 JavaScript 代码。</td>
+</tr>
+<tr>
+<td align="left">document.writeln()</td>
+<td align="left">等同于 write() 方法，不同的是在每个表达式之后写一个换行符。</td>
+</tr>
+</tbody></table>
+<h2 id="Navigator-对象"><a href="#Navigator-对象" class="headerlink" title="Navigator 对象"></a>Navigator 对象</h2><p>Navigator 对象包含着有关浏览器的信息。</p>
+<ul>
+<li>Navigator 对象属性</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">appCodeName</td>
+<td align="left">返回浏览器的代码名</td>
+</tr>
+<tr>
+<td align="left">appName</td>
+<td align="left">返回浏览器的名称</td>
+</tr>
+<tr>
+<td align="left">appVersion</td>
+<td align="left">返回浏览器的平台和版本信息</td>
+</tr>
+<tr>
+<td align="left">cookieEnabled</td>
+<td align="left">返回指明浏览器中是否启用 cookie 的布尔值</td>
+</tr>
+<tr>
+<td align="left">platform</td>
+<td align="left">返回运行浏览器的操作系统平台</td>
+</tr>
+<tr>
+<td align="left">userAgent</td>
+<td align="left">返回由客户机发送服务器的 user-agent 头部的值</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Navigator 对象方法</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">方法</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">javaEnabled()</td>
+<td align="left">指定是否在浏览器中启用Java</td>
+</tr>
+<tr>
+<td align="left">taintEnabled()</td>
+<td align="left">规定浏览器是否启用数据污点(data tainting)</td>
+</tr>
+</tbody></table>
+<h2 id="Location-对象"><a href="#Location-对象" class="headerlink" title="Location 对象"></a>Location 对象</h2><p>location 对象存储着当前文档的 URL 信息。可以通过 window.location 访问。</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">hash</td>
+<td align="left">设置或返回从井号 (#) 开始的 URL（锚）。</td>
+</tr>
+<tr>
+<td align="left">host</td>
+<td align="left">设置或返回主机名和当前 URL 的端口号。</td>
+</tr>
+<tr>
+<td align="left">hostname</td>
+<td align="left">设置或返回当前 URL 的主机名。</td>
+</tr>
+<tr>
+<td align="left">href</td>
+<td align="left">设置或返回完整的 URL。</td>
+</tr>
+<tr>
+<td align="left">pathname</td>
+<td align="left">设置或返回当前 URL 的路径部分。</td>
+</tr>
+<tr>
+<td align="left">port</td>
+<td align="left">设置或返回当前 URL 的端口号。</td>
+</tr>
+<tr>
+<td align="left">protocol</td>
+<td align="left">设置或返回当前 URL 的协议。</td>
+</tr>
+<tr>
+<td align="left">search</td>
+<td align="left">设置或返回从问号 (?) 开始的 URL（查询部分）。</td>
+</tr>
+</tbody></table>
+<p>location 对象方法</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">assign()</td>
+<td align="left">加载新的文档。</td>
+</tr>
+<tr>
+<td align="left">reload()</td>
+<td align="left">重新加载当前文档。</td>
+</tr>
+<tr>
+<td align="left">replace()</td>
+<td align="left">用新的文档替换当前文档。</td>
+</tr>
+</tbody></table>
+<h2 id="Screen对象"><a href="#Screen对象" class="headerlink" title="Screen对象"></a>Screen对象</h2><p>screen 对象中存放着有关显示浏览器屏幕的信息，我们可以利用这些信息使用 JavaScript 优化页面的显示输出，比如根据显示器尺寸选择输出大小尺寸的图像等。</p>
+<p>screen 对象的属性如下表所示</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">availHeight</td>
+<td align="left">返回显示屏幕的高度 (除 Windows 任务栏之外)。</td>
+</tr>
+<tr>
+<td align="left">availWidth</td>
+<td align="left">返回显示屏幕的宽度 (除 Windows 任务栏之外)。</td>
+</tr>
+<tr>
+<td align="left">bufferDepth</td>
+<td align="left">设置或返回调色板的比特深度。</td>
+</tr>
+<tr>
+<td align="left">colorDepth</td>
+<td align="left">返回目标设备或缓冲器上的调色板的比特深度。</td>
+</tr>
+<tr>
+<td align="left">deviceXDPI</td>
+<td align="left">返回显示屏幕的每英寸水平点数。</td>
+</tr>
+<tr>
+<td align="left">deviceYDPI</td>
+<td align="left">返回显示屏幕的每英寸垂直点数。</td>
+</tr>
+<tr>
+<td align="left">fontSmoothingEnabled</td>
+<td align="left">返回用户是否在显示控制面板中启用了字体平滑。</td>
+</tr>
+<tr>
+<td align="left">height</td>
+<td align="left">返回显示屏幕的高度。</td>
+</tr>
+<tr>
+<td align="left">logicalXDPI</td>
+<td align="left">返回显示屏幕每英寸的水平方向的常规点数。</td>
+</tr>
+<tr>
+<td align="left">logicalYDPI</td>
+<td align="left">返回显示屏幕每英寸的垂直方向的常规点数。</td>
+</tr>
+<tr>
+<td align="left">pixelDepth</td>
+<td align="left">返回显示屏幕的颜色分辨率（比特每像素）。</td>
+</tr>
+<tr>
+<td align="left">updateInterval</td>
+<td align="left">设置或返回屏幕的刷新率。</td>
+</tr>
+<tr>
+<td align="left">width</td>
+<td align="left">返回显示器屏幕的宽度。</td>
+</tr>
+</tbody></table>
+<h2 id="History-对象"><a href="#History-对象" class="headerlink" title="History 对象"></a>History 对象</h2><p>History 对象记录着用户在浏览器中访问过的 URL，开发人员无法直接得到用户浏览器的 URL，但是可以通过 History 对象实现后退和前进的操作。</p>
+<p>History 对象仅有一个属性 history.length，它保存着历史记录的URL数量，初始值为1。</p>
+<p>History 对象提供了一系列允许在浏览历史之间移动的方法，具体的方法及其说明如下。</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>go(n)</td>
+<td>可以在用户的历史记录中任意跳转，n代表向后或者向前跳转的页面数的整数值，负数表示向后跳转，整数表示向前跳转，参数为0的时候可以刷新当前页面，没有参数相当于参数为0的情况。</td>
+</tr>
+<tr>
+<td>forward()</td>
+<td>等同于浏览器的前进按钮，相当于history.go(1)</td>
+</tr>
+<tr>
+<td>back()</td>
+<td>等同于浏览器的后退按钮，相当于history.go(-1)</td>
+</tr>
+<tr>
+<td>pushState(state,  title, url)</td>
+<td>HTML5中新增的方法，向History中添加一个状态，参数由状态对象、标题（可忽略）、可选的URL地址组成。</td>
+</tr>
+<tr>
+<td>replaceState(state, title, url)</td>
+<td>HTML5中新增的方法，修改当前的历史记录条目而非创建新条目，其他与pushState()相同。</td>
+</tr>
+</tbody></table>
+<p>在使用前三个方法的时候，若移动的位置超过 History 所记录的历史的边界则不会报错，而是会静默的失败。</p>
+
+  </div>
+</article>
+
+
+    <div class="blog-post-comments">
+        <div id="utterances_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects/">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Window-%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text">Window 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Document-%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.</span> <span class="toc-text">Document 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Navigator-%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.</span> <span class="toc-text">Navigator 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Location-%E5%AF%B9%E8%B1%A1"><span class="toc-number">4.</span> <span class="toc-text">Location 对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Screen%E5%AF%B9%E8%B1%A1"><span class="toc-number">5.</span> <span class="toc-text">Screen对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#History-%E5%AF%B9%E8%B1%A1"><span class="toc-number">6.</span> <span class="toc-text">History 对象</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&text=BOM 常用对象类型笔记"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&is_video=false&description=BOM 常用对象类型笔记"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=BOM 常用对象类型笔记&body=Check out this article: http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&title=BOM 常用对象类型笔记"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&name=BOM 常用对象类型笔记&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2021/03/28/2021-03-28%20BOM%20%E5%B8%B8%E7%94%A8%E5%AF%B9%E8%B1%A1%E7%B1%BB%E5%9E%8B/&t=BOM 常用对象类型笔记"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2022
+    Colanns
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRKJ8VL35F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GRKJ8VL35F');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "accaef8c611f45e6acc7495a8b1ba32c"}'></script>
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+    <script type="text/javascript">
+      var utterances_repo = 'colasama/Colanns-Blog-Comments';
+      var utterances_issue_term = 'pathname';
+      var utterances_label = 'Comment';
+      var utterances_theme = 'github-dark';
+
+      (function(){
+          var script = document.createElement('script');
+
+          script.src = 'https://utteranc.es/client.js';
+          script.setAttribute('repo', utterances_repo);
+          script.setAttribute('issue-term', 'pathname');
+          script.setAttribute('label', utterances_label);
+          script.setAttribute('theme', utterances_theme);
+          script.setAttribute('crossorigin', 'anonymous');
+          script.async = true;
+          (document.getElementById('utterances_thread')).appendChild(script);
+      }());
+  </script>
+
+</body>
+</html>

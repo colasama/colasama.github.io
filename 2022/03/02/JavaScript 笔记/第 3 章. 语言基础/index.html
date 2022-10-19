@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="严格模式在脚本开头写下以下预处理指令即可开启。 1&quot;use strict&quot;;  也可以指定一个函数在严格模式下执行，将该预处理指令放在函数体开头即可。 变量var 声明 使用 var 操作符定义变量的时候，如果没有初始化将会保存一个特殊值 undefined。  使用 var 定义的变量会成为包含它的函数的局部变量，函数退出时销毁。  函数内定义变量时省略 var 操作符则可以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 红宝书笔记 - 第 3 章. 语言基础">
+<meta property="og:url" content="http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="Colanns&#39; Blog">
+<meta property="og:description" content="严格模式在脚本开头写下以下预处理指令即可开启。 1&quot;use strict&quot;;  也可以指定一个函数在严格模式下执行，将该预处理指令放在函数体开头即可。 变量var 声明 使用 var 操作符定义变量的时候，如果没有初始化将会保存一个特殊值 undefined。  使用 var 定义的变量会成为包含它的函数的局部变量，函数退出时销毁。  函数内定义变量时省略 var 操作符则可以">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220320193147409.png">
+<meta property="article:published_time" content="2022-03-02T12:12:34.000Z">
+<meta property="article:modified_time" content="2022-10-19T08:19:04.250Z">
+<meta property="article:author" content="Colanns">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220320193147409.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>JavaScript 红宝书笔记 - 第 3 章. 语言基础</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Colanns&#39; Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="icons.top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2022/02/26/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%202%20%E7%AB%A0.%20HTML%20%E4%B8%AD%E7%9A%84%20JS/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&text=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&is_video=false&description=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 红宝书笔记 - 第 3 章. 语言基础&body=Check out this article: http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&name=JavaScript 红宝书笔记 - 第 3 章. 语言基础&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&t=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">严格模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#var-%E5%A3%B0%E6%98%8E"><span class="toc-number">2.1.</span> <span class="toc-text">var 声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#let-%E5%A3%B0%E6%98%8E"><span class="toc-number">2.2.</span> <span class="toc-text">let 声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const-%E5%A3%B0%E6%98%8E"><span class="toc-number">2.3.</span> <span class="toc-text">const 声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%A3%B0%E6%98%8E%E9%A3%8E%E6%A0%BC"><span class="toc-number">2.4.</span> <span class="toc-text">关于声明风格</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%A7%8D%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C-1-%E7%A7%8D%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">6 种简单数据类型和 1 种复杂数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#typeof-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">3.2.</span> <span class="toc-text">typeof 操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Undefined-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.</span> <span class="toc-text">Undefined 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Null-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.4.</span> <span class="toc-text">Null 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boolean-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.5.</span> <span class="toc-text">Boolean 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.6.</span> <span class="toc-text">Number 类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E8%BD%AC%E6%8D%A2%EF%BC%88%E8%BD%AC%E6%8D%A2%E5%88%B0%E6%95%B0%E5%AD%97%EF%BC%89"><span class="toc-number">3.6.1.</span> <span class="toc-text">数值转换（转换到数字）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.7.</span> <span class="toc-text">String 类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.7.1.</span> <span class="toc-text">转换到字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="toc-number">3.7.2.</span> <span class="toc-text">模板字面量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Symbol-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.8.</span> <span class="toc-text">Symbol 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.9.</span> <span class="toc-text">Object 类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">4.</span> <span class="toc-text">操作符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5"><span class="toc-number">5.</span> <span class="toc-text">语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">函数</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaScript 红宝书笔记 - 第 3 章. 语言基础
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Colanns</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-03-02T12:12:34.000Z" itemprop="datePublished">2022-03-02</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/JavaScript/" rel="tag">JavaScript</a>, <a class="tag-link-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h2><p>在脚本开头写下以下预处理指令即可开启。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>也可以指定一个函数在严格模式下执行，将该预处理指令放在函数体开头即可。</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="var-声明"><a href="#var-声明" class="headerlink" title="var 声明"></a>var 声明</h3><ul>
+<li><p>使用 <code>var</code> 操作符定义变量的时候，如果没有初始化将会保存一个特殊值 <code>undefined</code>。</p>
+</li>
+<li><p>使用 <code>var</code> 定义的变量会成为包含它的函数的局部变量，函数退出时销毁。</p>
+</li>
+<li><p>函数内定义变量时省略 <code>var</code> 操作符则可以创建一个全局变量。（但是不推荐，严格模式下将会抛出 <code>ReferenceError</code>）</p>
+</li>
+<li><p><strong><code>var</code> 的声明提升（hoist）：</strong>使用 <code>var</code> 声明的变量会自动提升到函数作用域顶部（<strong>仅声明提升，赋值不会提升</strong>）。如下列两段代码等价。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(age);</span><br><span class="line">    <span class="keyword">var</span> age = <span class="number">26</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>(); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">var</span> age;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(age);</span><br><span class="line">    age = <span class="number">26</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">foo</span>(); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>反复使用 <code>var</code> 声明变量也没有问题。</p>
+</li>
+</ul>
+<h3 id="let-声明"><a href="#let-声明" class="headerlink" title="let 声明"></a>let 声明</h3><ul>
+<li><p><code>let</code> 与 <code>var</code> 的区别</p>
+<blockquote>
+<ol>
+<li><code>let</code> 声明的范围是块作用域，而 <code>var</code> 声明的范围是函数作用域。</li>
+<li><code>let</code> 不允许同一块作用域中出现冗余声明（<code>var</code> 也一样），否则报错 <code>SyntaxError</code>。</li>
+<li>嵌套使用相同的标识符不会报错。</li>
+</ol>
+</blockquote>
+</li>
+<li><p><strong>暂时性死区：</strong>在 <code>let</code> 声明之前的执行瞬间。此阶段引用任何后面才声明的变量都会抛出 <code>ReferenceError</code>。</p>
+</li>
+<li><p><strong>全局声明：</strong>使用 <code>let</code> 在全局作用域中声明的变量不会成为 <code>window</code> 对象的属性（<code>var</code> 声明的变量则会）。</p>
+</li>
+<li><p><code>let</code> 无法使用条件声明，但是这是好的。</p>
+</li>
+<li><p><code>for</code> 循环中的 <code>let</code> 声明</p>
+<p>![image-20220313203001356](第 3 章. 语言基础.assets&#x2F;image-20220313203001356.png)</p>
+<blockquote>
+<p>也就是说，<code>let</code> + 超时的时候 JS 引擎回味每个循环迭代声明一个新的变量，而 <code>var</code> 则不会。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="const-声明"><a href="#const-声明" class="headerlink" title="const 声明"></a>const 声明</h3><ul>
+<li>与 <code>let</code> 基本相同，唯一区别就是声明变量的时候也需要同时初始化变量，且尝试修改 <code>const</code> 声明的变量会导致运行时错误。</li>
+<li><strong>但是</strong> <code>const</code> 的限制只适用于它指向的变量的引用，如果引用的是一个对象，修改对象内部的属性是允许的。</li>
+</ul>
+<h3 id="关于声明风格"><a href="#关于声明风格" class="headerlink" title="关于声明风格"></a>关于声明风格</h3><ol>
+<li>不使用 <code>var</code>，提高代码质量.jpg</li>
+<li>优先使用 <code>const</code> ，更好查找 bug。</li>
+</ol>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="6-种简单数据类型和-1-种复杂数据类型"><a href="#6-种简单数据类型和-1-种复杂数据类型" class="headerlink" title="6 种简单数据类型和 1 种复杂数据类型"></a>6 种简单数据类型和 1 种复杂数据类型</h3><p><code>Undefined</code> &#x2F; <code>Null</code> &#x2F; <code>Boolean</code> &#x2F; <code>Number</code> &#x2F; <code>String</code> &#x2F; <code>Symbol</code> + <code>Object</code></p>
+<h3 id="typeof-操作符"><a href="#typeof-操作符" class="headerlink" title="typeof 操作符"></a>typeof 操作符</h3><ul>
+<li>用于确定任意变量的数据类型</li>
+<li>除了 6 种简单数据类型之外，还可能返回 <code>object</code> 和 <code>function</code></li>
+<li>函数也是一种对象，但是可以用 <code>typeof</code> 来区分。</li>
+</ul>
+<h3 id="Undefined-类型"><a href="#Undefined-类型" class="headerlink" title="Undefined 类型"></a>Undefined 类型</h3><ul>
+<li>只有一个值 <code>Undefined</code>，声明了但未初始化的时候就相当于赋了该值。</li>
+<li>与空对象指针 <code>null</code> 不同，但是表面相等（使用 <code>==</code> ）。</li>
+<li>需要注意， <code>typeof</code> 对未声明和未初始化的变量都会返回 <code>undefined</code>。</li>
+<li>是一个假值，检验时需要注意。</li>
+</ul>
+<h3 id="Null-类型"><a href="#Null-类型" class="headerlink" title="Null 类型"></a>Null 类型</h3><ul>
+<li>只有一个值 <code>Null</code>，表示空对象指针。</li>
+<li>建议定义将来要保存对象值的变量的时候，使用 <code>null</code> 初始化。</li>
+<li>是一个假值，检验时需要注意。</li>
+</ul>
+<h3 id="Boolean-类型"><a href="#Boolean-类型" class="headerlink" title="Boolean 类型"></a>Boolean 类型</h3><ul>
+<li>可以使用 <code>Boolean()</code> 将其他值转换为布尔值。 <code>if</code> 等流控制语句会自动执行其他类型值到布尔值的转换。</li>
+</ul>
+<h3 id="Number-类型"><a href="#Number-类型" class="headerlink" title="Number 类型"></a>Number 类型</h3><ul>
+<li>整数用八进制字面量表示的时候，第一个数字必须是 0，但是如果字面量超出了范围就会忽略前缀 0。同时，八进制在严格模式下是无效的（需要前缀 <code>0o</code>）。</li>
+<li>十六进制字面量则需要前缀 <code>0x</code>。</li>
+<li>对于浮点数，ECMAScript 总会想办法将值转换为整数。如 <code>1.</code>、<code>10.0</code> 都会被转换。</li>
+<li>科学记数法是允许的，如 <code>3.125e7</code>。</li>
+<li>不要测试浮点值，不要测试浮点值，不要测试浮点值。（由于 IEEE 754 数值的问题，会出现舍入错误以至于不能测试）</li>
+<li>由于内存限制，Number 可以表示的数有限，超出则会变为 <code>±Infinity</code>，此时不可以用于计算，确定一个值是否有限大可以用 <code>isFinite()</code> 函数，若为真值则为有限大。</li>
+<li><code>NaN</code> 表示 “不是数值”，在 <code>0/0</code>、<code>-0/+0</code> 的情况下会出现。而在 <code>5/0</code> 这种情况下会得到 <code>Infinity</code>。<ul>
+<li>同时 NaN 不等于 NaN。</li>
+<li>可以使用 <code>isNaN()</code> 来测试对象（但是不常见），其中 <code>false</code> 表示可以转换为数值。</li>
+</ul>
+</li>
+</ul>
+<h4 id="数值转换（转换到数字）"><a href="#数值转换（转换到数字）" class="headerlink" title="数值转换（转换到数字）"></a>数值转换（转换到数字）</h4><ul>
+<li><code>Number()</code> 万能转换捏。<ul>
+<li>对于对象调用 <code>valueOf()</code> 方法，如果结果是 <code>NaN</code> 则调用 <code>toString()</code> 方法并按照字符串转换的规则转换。</li>
+</ul>
+</li>
+<li><code>parseInt()</code> 只要第一个不是数值、加减号就会返回 <code>NaN</code>。<ul>
+<li>空字符串也会返回 <code>NaN</code>，而 <code>Number()</code> 会返回 0。</li>
+<li><code>&quot;1234abc&quot;</code> 会返回 1234。</li>
+<li>向下舍入，因为小数点不是有效的整数字符。</li>
+<li>不含前缀的十六进制字符串也可以被转换，但是需要传入 16 作为第二个参数（也就是可以按不同进制解析字符串）。</li>
+</ul>
+</li>
+<li><code>parseFloat()</code> 基本同上，只解析第一个小数点，同时只解析十进制。</li>
+</ul>
+<h3 id="String-类型"><a href="#String-类型" class="headerlink" title="String 类型"></a>String 类型</h3><ul>
+<li>可以用单双反引号标示。</li>
+<li><code>\&#39;\&quot;</code> 和 <code>\反引号</code> 可以在字符串中表达原意。</li>
+<li>字符串不可变，因此每次重定义都会重新创建与销毁。</li>
+</ul>
+<h4 id="转换到字符串"><a href="#转换到字符串" class="headerlink" title="转换到字符串"></a>转换到字符串</h4><ul>
+<li><p><code>toString()</code></p>
+<ul>
+<li>如果是 <code>null</code>，则返回 <code>&quot;null&quot;</code>，如果是 <code>undefined</code> 则返回 <code>&quot;undefined&quot;</code>。</li>
+</ul>
+</li>
+<li><p><code>值 + &quot;&quot;</code> 也可以将其转换为字符串。</p>
+</li>
+</ul>
+<h4 id="模板字面量"><a href="#模板字面量" class="headerlink" title="模板字面量"></a>模板字面量</h4><ul>
+<li><p>可以用反引号跨行定义字符串。如</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myMultiLine = <span class="string">`first line</span></span><br><span class="line"><span class="string">second line`</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(myMultiLine[<span class="number">0</span>] === <span class="string">&#x27;first line&#x27;</span>); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用模板字面量完成<strong>字符串插值</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> value = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">let</span> exponent = <span class="string">&#x27;second&#x27;</span>;</span><br><span class="line"><span class="comment">// 之前常用的版本</span></span><br><span class="line"><span class="keyword">let</span> chaString = value + <span class="string">&#x27;rua&#x27;</span> + exponent;</span><br><span class="line"><span class="comment">// 使用模板字面量的版本</span></span><br><span class="line"><span class="keyword">let</span> chaChaString = <span class="string">`<span class="subst">$&#123; value &#125;</span>rua<span class="subst">$&#123; exponent &#125;</span>`</span>;</span><br><span class="line"><span class="comment">// 一些无需转义的存在</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello, <span class="subst">$&#123; <span class="string">`World`</span> &#125;</span>!`</span>);</span><br><span class="line"><span class="comment">// 将表达式转为字符串会调用 toString()</span></span><br><span class="line"><span class="keyword">let</span> foo = &#123; <span class="attr">toString</span>: <span class="function">() =&gt;</span> <span class="string">&#x27;World&#x27;</span>&#125;;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Hello, <span class="subst">$&#123; foo &#125;</span>!`</span>);</span><br><span class="line"><span class="comment">// 插值表达式中可以调用函数和方法</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`<span class="subst">$&#123; capitalize(<span class="string">&#x27;hello&#x27;</span>)&#125;</span>`</span>);</span><br><span class="line"><span class="comment">// 也可以插入自己之前的值</span></span><br><span class="line"><span class="keyword">let</span> value = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">value = <span class="string">`<span class="subst">$&#123;value&#125;</span>abc`</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>模板字面量标签函数</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// <span class="doctag">TODO:</span> P42，暂时略过，有缘再看</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可以使用 <code>String.raw</code> 标签函数获取原始模板字面量内容。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`a\nb`</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">String</span>.<span class="property">raw</span><span class="string">`a\nb`</span>);</span><br><span class="line"><span class="comment">// 但是对实际的换行符就不行惹</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以通过标签函数的第一个参数获取原始内容。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> rawString <span class="keyword">of</span> strings.<span class="property">raw</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(rawString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Symbol-类型"><a href="#Symbol-类型" class="headerlink" title="Symbol 类型"></a>Symbol 类型</h3><ul>
+<li>是 ES6 新增的数据类型。符号是原始值，且符号实例唯一不可变。</li>
+<li>用途是确保对象属性使用唯一标识符，不会发生属性冲突的危险。</li>
+<li>需要使用 <code>Symbol()</code> 函数初始化。</li>
+<li>具有隐藏性，<code>for···in</code>，<code>object.keys()</code> 不能访问</li>
+<li>全局注册并登记的方法：<code>Symbol.for()</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// <span class="doctag">TODO:</span> P46 符号相关，可以重新深入阅读</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Object-类型"><a href="#Object-类型" class="headerlink" title="Object 类型"></a>Object 类型</h3><ul>
+<li>对象！</li>
+<li><img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220320193147409.png" alt="image-20220320193147409"></li>
+</ul>
+<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// <span class="doctag">TODO:</span> 可以重新深入阅读</span></span><br></pre></td></tr></table></figure>
+
+<p>**指数操作符 ****</p>
+<ul>
+<li>于 ES7 新增，相当于 <code>Math.pow()</code></li>
+</ul>
+<h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><ul>
+<li><strong><code>for-in</code> 语句</strong>：用于枚举对象中的非符号键<strong>属性</strong>。</li>
+<li><strong><code>for-of</code> 语句</strong>：用于遍历可迭代对象的元素，比如数组中的所有元素。会按照可迭代对象中的 <code>next()</code> 方法产生值的顺序迭代元素。</li>
+<li><strong>标签语句：</strong>可以与 <code>continue</code> 和 <code>break</code> 使用用来返回代码中的特定位置，通常在嵌套循环中使用。</li>
+<li><strong><code>with</code> 语句</strong>：类似于 Python 中的 <code>with</code>，但是严格模式中不允许使用 <code>with</code> 语句，且影响性能难于调试代码，通常不推荐使用。</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><blockquote>
+<p>第十章会更详细地介绍函数。</p>
+</blockquote>
+<ul>
+<li>不指定返回值的函数实际上会返回特殊值 <code>undefined</code>。</li>
+</ul>
+
+  </div>
+</article>
+
+
+    <div class="blog-post-comments">
+        <div id="utterances_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects/">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A5%E6%A0%BC%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">严格模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#var-%E5%A3%B0%E6%98%8E"><span class="toc-number">2.1.</span> <span class="toc-text">var 声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#let-%E5%A3%B0%E6%98%8E"><span class="toc-number">2.2.</span> <span class="toc-text">let 声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const-%E5%A3%B0%E6%98%8E"><span class="toc-number">2.3.</span> <span class="toc-text">const 声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E5%A3%B0%E6%98%8E%E9%A3%8E%E6%A0%BC"><span class="toc-number">2.4.</span> <span class="toc-text">关于声明风格</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E7%A7%8D%E7%AE%80%E5%8D%95%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C-1-%E7%A7%8D%E5%A4%8D%E6%9D%82%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.1.</span> <span class="toc-text">6 种简单数据类型和 1 种复杂数据类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#typeof-%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">3.2.</span> <span class="toc-text">typeof 操作符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Undefined-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.3.</span> <span class="toc-text">Undefined 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Null-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.4.</span> <span class="toc-text">Null 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Boolean-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.5.</span> <span class="toc-text">Boolean 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.6.</span> <span class="toc-text">Number 类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%80%BC%E8%BD%AC%E6%8D%A2%EF%BC%88%E8%BD%AC%E6%8D%A2%E5%88%B0%E6%95%B0%E5%AD%97%EF%BC%89"><span class="toc-number">3.6.1.</span> <span class="toc-text">数值转换（转换到数字）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.7.</span> <span class="toc-text">String 类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AC%E6%8D%A2%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">3.7.1.</span> <span class="toc-text">转换到字符串</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="toc-number">3.7.2.</span> <span class="toc-text">模板字面量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Symbol-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.8.</span> <span class="toc-text">Symbol 类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-%E7%B1%BB%E5%9E%8B"><span class="toc-number">3.9.</span> <span class="toc-text">Object 类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">4.</span> <span class="toc-text">操作符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%AD%E5%8F%A5"><span class="toc-number">5.</span> <span class="toc-text">语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">6.</span> <span class="toc-text">函数</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&text=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&is_video=false&description=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 红宝书笔记 - 第 3 章. 语言基础&body=Check out this article: http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&title=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&name=JavaScript 红宝书笔记 - 第 3 章. 语言基础&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/&t=JavaScript 红宝书笔记 - 第 3 章. 语言基础"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2022
+    Colanns
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRKJ8VL35F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GRKJ8VL35F');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "accaef8c611f45e6acc7495a8b1ba32c"}'></script>
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+    <script type="text/javascript">
+      var utterances_repo = 'colasama/Colanns-Blog-Comments';
+      var utterances_issue_term = 'pathname';
+      var utterances_label = 'Comment';
+      var utterances_theme = 'github-dark';
+
+      (function(){
+          var script = document.createElement('script');
+
+          script.src = 'https://utteranc.es/client.js';
+          script.setAttribute('repo', utterances_repo);
+          script.setAttribute('issue-term', 'pathname');
+          script.setAttribute('label', utterances_label);
+          script.setAttribute('theme', utterances_theme);
+          script.setAttribute('crossorigin', 'anonymous');
+          script.async = true;
+          (document.getElementById('utterances_thread')).appendChild(script);
+      }());
+  </script>
+
+</body>
+</html>

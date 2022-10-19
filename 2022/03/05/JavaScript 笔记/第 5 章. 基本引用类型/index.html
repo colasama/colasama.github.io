@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="基本引用类型 JS 的引用对象像类，又不是类，属实扭曲。   函数也是一种引用类型。 new + 构造函数 用来创建引用类型的新实例。  Date 随用随查表即可。  正则表达式1let expression &#x3D; &#x2F;pattern&#x2F;flags;   可以通过字面量和 RegExp 构造函数两种方式创建。   随用随查！   原始值包装类型 三种包装类型：Boolean、Number、String">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 红宝书笔记 - 第 5 章. 基本引用类型">
+<meta property="og:url" content="http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Colanns&#39; Blog">
+<meta property="og:description" content="基本引用类型 JS 的引用对象像类，又不是类，属实扭曲。   函数也是一种引用类型。 new + 构造函数 用来创建引用类型的新实例。  Date 随用随查表即可。  正则表达式1let expression &#x3D; &#x2F;pattern&#x2F;flags;   可以通过字面量和 RegExp 构造函数两种方式创建。   随用随查！   原始值包装类型 三种包装类型：Boolean、Number、String">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/8_PK@C51XG$%7B8TDI%MZHQNU.png">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220322123410118.png">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220322123424907.png">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220322122558113.png">
+<meta property="og:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220322122759261.png">
+<meta property="article:published_time" content="2022-03-05T12:12:34.000Z">
+<meta property="article:modified_time" content="2022-10-19T08:19:04.250Z">
+<meta property="article:author" content="Colanns">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/8_PK@C51XG$%7B8TDI%MZHQNU.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>JavaScript 红宝书笔记 - 第 5 章. 基本引用类型</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Colanns&#39; Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="icons.top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2022/03/07/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%206%20%E7%AB%A0.%20%E9%9B%86%E5%90%88%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&text=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&is_video=false&description=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型&body=Check out this article: http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&name=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&t=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">基本引用类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date"><span class="toc-number">1.1.</span> <span class="toc-text">Date</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">正则表达式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%80%BC%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">原始值包装类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.1.</span> <span class="toc-text">Number 对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.2.</span> <span class="toc-text">String 对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E5%AD%90%E4%B8%B2%E7%9A%84%E4%B8%89%E4%B8%AA%E6%96%B9%E6%B3%95%E8%BE%A8%E6%9E%90"><span class="toc-number">2.2.1.</span> <span class="toc-text">提取子串的三个方法辨析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BD%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.2.</span> <span class="toc-text">字符串位置方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.3.</span> <span class="toc-text">字符串包含方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.4.</span> <span class="toc-text">一些其他方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.</span> <span class="toc-text">单例内置对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Global-%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.1.</span> <span class="toc-text">Global 对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Math-%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.2.</span> <span class="toc-text">Math 对象</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaScript 红宝书笔记 - 第 5 章. 基本引用类型
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Colanns</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-03-05T12:12:34.000Z" itemprop="datePublished">2022-03-05</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/JavaScript/" rel="tag">JavaScript</a>, <a class="tag-link-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="基本引用类型"><a href="#基本引用类型" class="headerlink" title="基本引用类型"></a>基本引用类型</h2><blockquote>
+<p>JS 的引用对象像类，又不是类，属实扭曲。</p>
+</blockquote>
+<ul>
+<li>函数也是一种引用类型。</li>
+<li><code>new + 构造函数</code> 用来创建引用类型的新实例。</li>
+</ul>
+<h3 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h3><blockquote>
+<p>随用随查表即可。</p>
+</blockquote>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> expression = <span class="regexp">/pattern/</span>flags;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以通过字面量和 <code>RegExp</code> 构造函数两种方式创建。</li>
+</ul>
+<blockquote>
+<p>随用随查！</p>
+</blockquote>
+<p><img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/8_PK@C51XG$%7B8TDI%MZHQNU.png" alt="8_PK@C51XG${8TDI%MZHQNU"></p>
+<h2 id="原始值包装类型"><a href="#原始值包装类型" class="headerlink" title="原始值包装类型"></a>原始值包装类型</h2><ul>
+<li><p>三种包装类型：<code>Boolean</code>、<code>Number</code>、<code>String</code></p>
+</li>
+<li><p>例：以读模式访问字符串时，会顺序执行：</p>
+<ul>
+<li>创建一个 <code>String</code> 类型实例</li>
+<li>调用实例上的特定方法</li>
+<li>销毁实例</li>
+</ul>
+</li>
+<li><p>引用类型与原始值包装类型主要区别在于对象的生命周期</p>
+<ul>
+<li>引用类型离开作用域时销毁</li>
+<li>自动创建的原始值包装对象仅存在于访问它的那行代码的执行期间</li>
+</ul>
+</li>
+<li><p>除非必要，不要显式使用原始值包装类型创建对象。</p>
+</li>
+<li><p><code>Object</code> 构造函数作为工厂方法可以根据传入值类型返回相应原始值包装类型的实例。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title class_">Object</span>(<span class="string">&quot;text&quot;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(obj <span class="keyword">instanceof</span> <span class="title class_">String</span>);</span><br><span class="line"><span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>new</code> 调用原始值包装类型的构造函数得到的结果和调用同名的转型函数不同。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> value = <span class="string">&quot;25&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> number = <span class="title class_">Number</span>(value);</span><br><span class="line"><span class="comment">// typeof number → &quot;number&quot;</span></span><br><span class="line"><span class="keyword">let</span> obj = <span class="keyword">new</span> <span class="title class_">Number</span>(value);</span><br><span class="line"><span class="comment">// typeof obj → &quot;object&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建议<strong>永远不要使用</strong> <code>Boolean</code> 对象。</p>
+</li>
+</ul>
+<h3 id="Number-对象"><a href="#Number-对象" class="headerlink" title="Number 对象"></a><code>Number</code> 对象</h3><ul>
+<li><code>num.toString(进制)</code> 可以直接返回对应进制的数值字符串。</li>
+<li><code>num.valueOf()</code> 可以返回原始数值。</li>
+<li><code>num.toFixed(小数位数)</code> 可以返回包含指定小数位数的字符串，会四舍五入。</li>
+<li><code>num,.toExponential(小数位数)</code> 返回科学记数法。</li>
+<li><code>num.toPrecision(总位数)</code> 根据情况返回最合理的输出结果，可以表示 1 ~ 21 位。</li>
+<li><code>Number.isInteger()</code> 用于判断数值是否保存整数。</li>
+<li><code>Number.isSafeInteger()</code> 用于判断一个整数是否在 IEEE 754 数值格式中二进制可以表示的整数范围内（$[-2^{53}+1,2^{53}-1]$）。</li>
+</ul>
+<h3 id="String-对象"><a href="#String-对象" class="headerlink" title="String 对象"></a><code>String</code> 对象</h3><ul>
+<li><code>str.length</code> 属性表示字符数量。对多数字符来说每 16 位码元对应一个字符，所以 <code>length</code> 属性可以表示字符串包含多少 16 位码元。</li>
+<li><code>str.charAt()</code> 返回给定位置字符，从 0 开始。</li>
+<li><code>str.charCodeAt()</code> 可以查看码元的字符编码。</li>
+<li><code>String.fromCharCode()</code> 可以根据给定码元创建字符，以逗号分隔。<ul>
+<li>涉及增补平面（Unicode的策略：代理对，使用另外 16 位选择一个增补平面，每个字符使用两个 16 位码元）的字符的时候，<code>charAt()</code> 和 <code>charCodeAt()</code> 失效。可以使用 <code>codePointAt()</code> 代替。</li>
+</ul>
+</li>
+<li><code>str.normalize()</code> 规范化。</li>
+<li><code>str.concat(str2)</code> <code>str</code> 拼接 <code>str2</code> 字符串，更常用加号。<h4 id="提取子串的三个方法辨析"><a href="#提取子串的三个方法辨析" class="headerlink" title="提取子串的三个方法辨析"></a>提取子串的三个方法辨析</h4></li>
+</ul>
+<blockquote>
+<p>来自 <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38047742/article/details/82144266">https://blog.csdn.net/qq_38047742/article/details/82144266</a></p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str.<span class="title function_">slice</span>()</span><br><span class="line">str.<span class="title function_">substring</span>()</span><br><span class="line">str.<span class="title function_">substr</span>()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>使用一个参数</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//栗子数据</span></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>],</span><br><span class="line">    str = <span class="string">&quot;helloworld!&quot;</span>;  <span class="comment">//防止空格干扰，不用带空格的，注意这里有个！号也算一位</span></span><br><span class="line"> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">slice</span>(<span class="number">1</span>));  <span class="comment">//elloworld!  </span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">substring</span>(<span class="number">1</span>)); <span class="comment">//elloworld! </span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">substr</span>(<span class="number">1</span>));  <span class="comment">//elloworld! </span></span><br><span class="line">			</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">slice</span>(<span class="number">1</span>));  <span class="comment">//[2,3,4,5,6,7]</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">substr</span>(<span class="number">1</span>));  <span class="comment">//TypeError: arr.substr is not a function</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">substring</span>(<span class="number">1</span>));  <span class="comment">//TypeError: arr.substring is not a function</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>使用两个整数参数（第一个小于第二个）</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">slice</span>(<span class="number">1</span>,<span class="number">4</span>));  <span class="comment">//ell</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">substring</span>(<span class="number">1</span>,<span class="number">4</span>));  <span class="comment">//ell</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">substr</span>(<span class="number">1</span>,<span class="number">4</span>)); <span class="comment">//ello  不一致了！！！</span></span><br><span class="line"> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">slice</span>(<span class="number">1</span>,<span class="number">4</span>)); <span class="comment">//[2,3,4]</span></span><br></pre></td></tr></table></figure>
+
+<p><code>substr()</code> 的第二个参数是截取几位，而其他几个是截取到第几位的前面（经典左开右闭）。</p>
+</li>
+<li><p><strong>使用两个整数参数（第一个大于第二个</strong>）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">slice</span>(<span class="number">5</span>,<span class="number">1</span>));  <span class="comment">//&quot;&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">substring</span>(<span class="number">5</span>,<span class="number">1</span>));  <span class="comment">//ello</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(str.<span class="title function_">substr</span>(<span class="number">5</span>,<span class="number">1</span>));  <span class="comment">//&quot;w&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(arr.<span class="title function_">slice</span>(<span class="number">5</span>,<span class="number">1</span>));  <span class="comment">//[]</span></span><br></pre></td></tr></table></figure>
+
+<p><code>substring()</code> 会将较小的参数作为起点。</p>
+<p><code>slice()</code> 则会无效。</p>
+</li>
+<li><p><strong>出现负值的情况</strong></p>
+<ul>
+<li><code>slice()</code> 将所有负值参数当成字符串长度加上负数值。</li>
+<li><code>substr()</code> 将第一个负参数值当成字符串长度加上该值，第二个转换为 0。</li>
+<li><code>substring()</code> 方法则都会转换为 0。</li>
+</ul>
+</li>
+</ul>
+<h4 id="字符串位置方法"><a href="#字符串位置方法" class="headerlink" title="字符串位置方法"></a>字符串位置方法</h4><ul>
+<li><code>str.indexOf()</code> 从开头向结尾查找字符串，可以接收参数忽略该位置之前的字符。</li>
+<li><code>str.lastIndexOf()</code> 从末尾向开头查找字符串，可以接收参数忽略该位置之后的字符。</li>
+</ul>
+<h4 id="字符串包含方法"><a href="#字符串包含方法" class="headerlink" title="字符串包含方法"></a>字符串包含方法</h4><ul>
+<li><code>startsWith()</code> 开头是否是</li>
+<li><code>endsWith()</code> 结尾是否是</li>
+<li><code>includes()</code> 检查整个字符串</li>
+<li><code>startsWith()</code> 和 <code>includes()</code> 都接受第二个参数，表示开始搜索的位置。</li>
+</ul>
+<h4 id="一些其他方法"><a href="#一些其他方法" class="headerlink" title="一些其他方法"></a>一些其他方法</h4><ul>
+<li><p><code>str.trim()</code> 返回删除前后所有空格的字符串副本</p>
+</li>
+<li><p><code>str.repeat(整数参数)</code> 复制并连接</p>
+</li>
+<li><p><code>str.padStart()/padEnd()</code> 第一个参数为长度，第二个参数是可选的填充字符串，默认为空格</p>
+</li>
+<li><p>迭代与解构</p>
+<p>字符串原型上暴露了一个 <code>@@iterator</code> 方法，用来迭代字符串上的每个字符。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;abc&quot;</span>;</span><br><span class="line"><span class="keyword">let</span> stringIterator = message[<span class="title class_">Symbol</span>.<span class="property">iterator</span>]();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(stringIterator.<span class="title function_">next</span>()); <span class="comment">// &#123;value: &quot;a&quot;, done: false&#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(stringIterator.<span class="title function_">next</span>()); <span class="comment">// &#123;value: &quot;b&quot;, done: false&#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(stringIterator.<span class="title function_">next</span>()); <span class="comment">// &#123;value: &quot;c&quot;, done: false&#125;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(stringIterator.<span class="title function_">next</span>()); <span class="comment">// &#123;value: undefined, done: true&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>for-of</code> 循环也可以使用这个来访问每个字符。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> c <span class="keyword">of</span> <span class="string">&quot;abcde&quot;</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用解构操作符将字符串分割为字符数组：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">&quot;abcde&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>([...message]);</span><br><span class="line"><span class="comment">// [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>大小写转换</p>
+<ul>
+<li><code>str.toLowerCase() / toUpperCase()</code></li>
+<li><code>str.toLocaleLowerCase() / toLocaleUpperCase()</code> 用于特定地区</li>
+</ul>
+</li>
+<li><p><code>str.match(正则 pattern)</code> 字符串匹配所有符合条件的</p>
+</li>
+<li><p><code>str.search(正则 pattern)</code> 字符串匹配第一个符合条件的</p>
+</li>
+<li><p><code>str.replace(字符串/RegExp对象, 替换字符串 / 函数)</code> 其中第二个值有些特殊字符序列来插入正则表达式操作的值，第二个如果是函数则会受到三个参数，可以更细致控制替换过程。</p>
+</li>
+<li><p><code>str.split(字符串/RegExp, 数组大小)</code> 分隔</p>
+</li>
+<li><p><code>str.localeCompare()</code> 按字母表排序比较</p>
+</li>
+<li></li>
+</ul>
+<h2 id="单例内置对象"><a href="#单例内置对象" class="headerlink" title="单例内置对象"></a>单例内置对象</h2><ul>
+<li>内置对象：任何由 ECMAScript 实现提供、与宿主环境无关，并在 ECMAScript 程序开始执行时就存在的对象。</li>
+</ul>
+<h3 id="Global-对象"><a href="#Global-对象" class="headerlink" title="Global 对象"></a><code>Global</code> 对象</h3><ul>
+<li><p>兜底对象，在全局作用域中定义的变量和函数会变成 <code>Global</code> 对象的属性。</p>
+</li>
+<li><p>包括 <code>isNaN() / isFinite() / parseInt() / parseFloat()</code> 都是 <code>Global</code> 对象的方法。</p>
+</li>
+<li><p>URL 编码方法</p>
+<ul>
+<li><code>encodeURI()</code> 把空格之类的编码成可以访问的 URL</li>
+<li><code>encodeURIComponent()</code> 编码 URL 中的单独组件，&#x2F; 之类的符号也会被编码。</li>
+</ul>
+</li>
+<li><p><code>eval()</code> 接受一个 JS 字符串并运行</p>
+<ul>
+<li>会将其解释为实际的语句然后插入该位置，这部分代码属于该调用所在上下文，被执行的代码与上下文拥有相同作用域链。</li>
+<li>通过其定义的变量和函数不会获得提升。</li>
+<li>严格模式下其内部定义的变量和函数无法被外部访问。</li>
+<li>谨慎使用。</li>
+</ul>
+</li>
+<li><p><strong><code>Global</code> 对象的属性</strong><img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220322123410118.png" alt="image-20220322123410118"></p>
+<p><img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220322123424907.png" alt="image-20220322123424907"></p>
+</li>
+<li><p><code>window</code> 对象</p>
+<ul>
+<li>浏览器将 <code>window</code> 对象实现为 <code>Global</code> 对象的代理，所以全局作用域中声明的变量和函数都成为了 <code>window</code> 的属性。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Math-对象"><a href="#Math-对象" class="headerlink" title="Math 对象"></a><code>Math</code> 对象</h3><ul>
+<li><p><strong><code>Math</code> 对象的属性</strong></p>
+<p><img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220322122558113.png" alt="image-20220322122558113"></p>
+</li>
+<li><p><strong><code>Math</code> 对象的方法</strong></p>
+<ul>
+<li><code>min() / max()</code></li>
+<li><code>ceil()</code> 向上舍入</li>
+<li><code>floor()</code> 向下摄入</li>
+<li><code>round()</code> 四舍五入</li>
+<li><code>fround()</code> 返回数值最接近的单精度浮点值</li>
+<li><code>random()</code> 返回 -~1 之间的随机数</li>
+<li>其他方法<img src="https://colanns-picgo.oss-cn-beijing.aliyuncs.com/picgo/image-20220322122759261.png" alt="image-20220322122759261"></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+    <div class="blog-post-comments">
+        <div id="utterances_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects/">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.</span> <span class="toc-text">基本引用类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date"><span class="toc-number">1.1.</span> <span class="toc-text">Date</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">1.2.</span> <span class="toc-text">正则表达式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%80%BC%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">原始值包装类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Number-%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.1.</span> <span class="toc-text">Number 对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.2.</span> <span class="toc-text">String 对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%90%E5%8F%96%E5%AD%90%E4%B8%B2%E7%9A%84%E4%B8%89%E4%B8%AA%E6%96%B9%E6%B3%95%E8%BE%A8%E6%9E%90"><span class="toc-number">2.2.1.</span> <span class="toc-text">提取子串的三个方法辨析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BD%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.2.</span> <span class="toc-text">字符串位置方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%85%E5%90%AB%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.3.</span> <span class="toc-text">字符串包含方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="toc-number">2.2.4.</span> <span class="toc-text">一些其他方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E4%BE%8B%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.</span> <span class="toc-text">单例内置对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Global-%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.1.</span> <span class="toc-text">Global 对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Math-%E5%AF%B9%E8%B1%A1"><span class="toc-number">3.2.</span> <span class="toc-text">Math 对象</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&text=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&is_video=false&description=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型&body=Check out this article: http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&title=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&name=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/&t=JavaScript 红宝书笔记 - 第 5 章. 基本引用类型"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2022
+    Colanns
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRKJ8VL35F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GRKJ8VL35F');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "accaef8c611f45e6acc7495a8b1ba32c"}'></script>
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+    <script type="text/javascript">
+      var utterances_repo = 'colasama/Colanns-Blog-Comments';
+      var utterances_issue_term = 'pathname';
+      var utterances_label = 'Comment';
+      var utterances_theme = 'github-dark';
+
+      (function(){
+          var script = document.createElement('script');
+
+          script.src = 'https://utteranc.es/client.js';
+          script.setAttribute('repo', utterances_repo);
+          script.setAttribute('issue-term', 'pathname');
+          script.setAttribute('label', utterances_label);
+          script.setAttribute('theme', utterances_theme);
+          script.setAttribute('crossorigin', 'anonymous');
+          script.async = true;
+          (document.getElementById('utterances_thread')).appendChild(script);
+      }());
+  </script>
+
+</body>
+</html>

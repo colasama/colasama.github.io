@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="原始值与引用值 原始值有 6 种 Undefined、Null、Boolean、Number、String 和 Symbol。 保存原始值的变量是按值访问的，对于对象则是按引用访问的。 原始值不能有属性。 原始值大小固定，保存在栈内存上；引用值是对象，保存在堆内存上。  复制值 原始值的复制是副本，互不干扰。 引用值的复制是引用，实际上是指针，指向存储在堆内存中的对象。  传递参数 所有函数的参数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存">
+<meta property="og:url" content="http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/index.html">
+<meta property="og:site_name" content="Colanns&#39; Blog">
+<meta property="og:description" content="原始值与引用值 原始值有 6 种 Undefined、Null、Boolean、Number、String 和 Symbol。 保存原始值的变量是按值访问的，对于对象则是按引用访问的。 原始值不能有属性。 原始值大小固定，保存在栈内存上；引用值是对象，保存在堆内存上。  复制值 原始值的复制是副本，互不干扰。 引用值的复制是引用，实际上是指针，指向存储在堆内存中的对象。  传递参数 所有函数的参数">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-03-04T12:12:34.000Z">
+<meta property="article:modified_time" content="2022-10-19T08:19:04.250Z">
+<meta property="article:author" content="Colanns">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="Colanns&#39; Blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="icons.menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="icons.top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="上一篇" href="/2022/03/05/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%205%20%E7%AB%A0.%20%E5%9F%BA%E6%9C%AC%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="下一篇" href="/2022/03/02/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%203%20%E7%AB%A0.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="返回顶部" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="分享文章" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&text=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&is_video=false&description=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存&body=Check out this article: http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&name=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&t=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%80%BC%E4%B8%8E%E5%BC%95%E7%94%A8%E5%80%BC"><span class="toc-number">1.</span> <span class="toc-text">原始值与引用值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E5%80%BC"><span class="toc-number">1.1.</span> <span class="toc-text">复制值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">传递参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">确定类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%EF%BC%88Context%EF%BC%89%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.4.</span> <span class="toc-text">执行上下文（Context）与作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE%E5%A2%9E%E5%BC%BA"><span class="toc-number">1.5.</span> <span class="toc-text">作用域链增强</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">1.6.</span> <span class="toc-text">变量声明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">2.</span> <span class="toc-text">垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">标记清理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">引用计数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD"><span class="toc-number">2.3.</span> <span class="toc-text">性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">2.4.</span> <span class="toc-text">内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-number">2.4.1.</span> <span class="toc-text">内存泄漏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E9%85%8D%E4%B8%8E%E5%AF%B9%E8%B1%A1%E6%B1%A0"><span class="toc-number">2.4.2.</span> <span class="toc-text">静态分配与对象池</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Colanns</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-03-04T12:12:34.000Z" itemprop="datePublished">2022-03-04</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/JavaScript/" rel="tag">JavaScript</a>, <a class="tag-link-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="原始值与引用值"><a href="#原始值与引用值" class="headerlink" title="原始值与引用值"></a>原始值与引用值</h2><ul>
+<li>原始值有 6 种 <code>Undefined</code>、<code>Null</code>、<code>Boolean</code>、<code>Number</code>、<code>String</code> 和 <code>Symbol</code>。</li>
+<li>保存原始值的变量是按值访问的，对于对象则是按引用访问的。</li>
+<li>原始值不能有属性。</li>
+<li>原始值大小固定，保存在<strong>栈内存</strong>上；引用值是对象，保存在<strong>堆内存</strong>上。</li>
+</ul>
+<h3 id="复制值"><a href="#复制值" class="headerlink" title="复制值"></a>复制值</h3><ul>
+<li>原始值的复制是副本，互不干扰。</li>
+<li>引用值的复制是引用，实际上是指针，指向存储在堆内存中的对象。</li>
+</ul>
+<h3 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h3><ul>
+<li>所有函数的参数都是按值传递的，对本地变量的修改不会反映到函数外部。</li>
+<li>但是对象的话是相当于通过值传了指针，所以内部也可以通过引用访问对象，对象中的属性也会相对改变。</li>
+</ul>
+<h3 id="确定类型"><a href="#确定类型" class="headerlink" title="确定类型"></a>确定类型</h3><ul>
+<li><code>typeof</code> 确定原始值，<code>instanceof</code> 确定什么类型的对象（由原型链决定）。<ul>
+<li>*任何实现内部 <code>[[Call]]</code> 方法的对象都会在 <code>typeof</code> 的时候返回 <code>function</code>。因此在检测正则表达式的时候也会返回 <code>function</code>。</li>
+</ul>
+</li>
+</ul>
+<h3 id="执行上下文（Context）与作用域"><a href="#执行上下文（Context）与作用域" class="headerlink" title="执行上下文（Context）与作用域"></a>执行上下文（Context）与作用域</h3><blockquote>
+<p>可以把 <a target="_blank" rel="noopener" href="https://blog.csdn.net/yueguanghaidao/article/details/9568071">Js 作用域与作用域链详解</a> 作为参考。</p>
+</blockquote>
+<ul>
+<li>浏览器中的全局上下文（最外层的上下文）就是 <code>window</code> 对象。因此所有通过 <code>var</code> 定义的全局变量和函数都会成为 <code>window</code> 对象的属性和方法。<ul>
+<li>上下文在所有代码执行完毕的时候销毁。</li>
+</ul>
+</li>
+<li>每个函数调用都有自己的上下文，代码执行流进入函数时会被推入一个上下文栈中。执行完毕之后弹出。<ul>
+<li>上下文中的代码执行时会创建变量对象的作用域链，它决定了各级上下文中的代码在访问变量和函数时的顺序。</li>
+<li>正在执行的上下文中的变量对象始终位于作用域链的最前端。</li>
+<li>如果上下文是函数，则其活动对象作为变量对象。<ul>
+<li>活动对象最初只有一个定义变量 <code>arguments</code> （全局上下文中没这个）</li>
+</ul>
+</li>
+<li>作用域链中下一个变量对象来自于包含上下文，以此类推到全局上下文。</li>
+<li>全局上下文的变量对象时钟是作用域链的最后一个变量对象。</li>
+<li>函数参数被认为是当前上下文中的变量。</li>
+</ul>
+</li>
+<li>代码执行时标识符解析是沿作用域链逐级搜索标识符名称完成的。</li>
+<li><code>eval()</code> 调用内部存在第三种上下文。</li>
+</ul>
+<blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> scope=<span class="string">&quot;global&quot;</span>;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">t</span>(<span class="params"></span>)&#123;</span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(scope);</span><br><span class="line"> <span class="keyword">var</span> scope=<span class="string">&quot;local&quot;</span></span><br><span class="line"> <span class="variable language_">console</span>.<span class="title function_">log</span>(scope);</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">t</span>();</span><br></pre></td></tr></table></figure>
+
+<p>中是因为在函数 <code>t</code> 中 <code>var</code> 声明的 <code>scope</code> 变量提升了，所以第一个打印出来的是 <code>undefined</code>。</p>
+</blockquote>
+<ul>
+<li><p>关于 <code>this</code></p>
+<blockquote>
+<p>官方的称呼为 This Binding，在全局执行上下文中，<code>this</code> 总是指向全局对象，例如浏览器环境下 <code>this</code> 指向 <code>window</code> 对象。</p>
+<p>而在函数执行上下文中，<code>this</code> 的值取决于函数的调用方式，如果被一个对象调用，那么 <code>this</code> 指向这个对象。否则 <code>this</code> 一般指向全局对象 <code>window</code> 或者 <code>undefined</code>（严格模式）。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="作用域链增强"><a href="#作用域链增强" class="headerlink" title="作用域链增强"></a>作用域链增强</h3><p>某些语句会导致作用域前端临时添加一个上下文。通常有以下两种情况。</p>
+<ul>
+<li><code>with</code> 语句</li>
+<li><code>try/catch</code> 语句的 <code>catch</code> 块</li>
+</ul>
+<p>对于 <code>with</code> 语句会添加指定的对象，<code>catch</code> 语句则会创建一个新的变量对象，包含要抛出的错误对象的声明。</p>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><ul>
+<li><p>使用 <code>var</code> 时变量会被添加到最接近的上下文。</p>
+</li>
+<li><p>如果变量<strong>未经声明就被初始化</strong>的话，会被自动添加到全局上下文。（是一个常见错误）</p>
+</li>
+<li><p><code>var</code> 会发生变量提升。</p>
+</li>
+<li><p><code>let</code> 拥有块级作用域，统一作用域内不能声明两次。</p>
+</li>
+<li><p><code>let</code> 适合在循环中声明迭代变量，而 <code>var</code> 声明的话会泄漏到循环外部。</p>
+</li>
+<li><p><code>const</code> 的情况下，如果使整个对象不能被修改的话，可以使用 <code>Object.freeze()</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> o3 = <span class="title class_">Object</span>.<span class="title function_">freeze</span>(&#123;&#125;);</span><br><span class="line">o3.<span class="property">name</span> = <span class="string">&quot;Colanns&quot;</span>;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(o3.<span class="property">name</span>); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>作用域链中的对象也有一个原型链，对标识符打的搜索可能涉及到每个对象的原型链。</p>
+</li>
+</ul>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><ul>
+<li>JS 采用自动内存管理。</li>
+<li>两种主要的标记策略<ul>
+<li>标记清理</li>
+<li>引用计数</li>
+</ul>
+</li>
+</ul>
+<h3 id="标记清理"><a href="#标记清理" class="headerlink" title="标记清理"></a>标记清理</h3><ul>
+<li>变量进入上下文时会被加上存在标记。</li>
+<li>变量离开上下文时会被加上离开标记。</li>
+<li>GC 程序运行的时候，会标记内存中的所有变量，然后将所有在上下文中的变量和被上下文中变量引用的变量的标记去掉，之后再被加上标记的变量即为待删除的。（因为任何在上下文中的变量都访问不到他们了）</li>
+</ul>
+<h3 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a>引用计数</h3><ul>
+<li><p>没那么常用，且有问题：循环引用。</p>
+</li>
+<li><p>声明变量并赋予引用值时，引用数为 1。</p>
+</li>
+<li><p>同一个值被赋给了其他变量则引用数加 1。</p>
+</li>
+<li><p>保存对该值引用的变量被其他值覆盖则引用数减 1。</p>
+</li>
+<li><p>引用数为 0 的时候 GC 程序将在下次运行时回收内存。</p>
+</li>
+<li><p>循环引用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">problem</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> objectA = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    <span class="keyword">let</span> objectB = <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line">    objectA.<span class="property">someOtherObject</span> = objectB;</span><br><span class="line">    objectB.<span class="property">anotherObject</span> = objectA;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>二者的引用数将会是 2，但是函数结束后二者都不在作用域中，但是不会被释放。</p>
+</li>
+<li><p>公开处刑 IE（P96）</p>
+</li>
+</ul>
+<h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><ul>
+<li>二度公开处刑 IE（P97）</li>
+</ul>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><ul>
+<li><p>如果数据不再必要，则设为 <code>null</code>，解除引用，尤其对于全局变量和全局对象的属性。</p>
+</li>
+<li><p>多多使用 <code>const</code> 和 <code>let</code>。</p>
+</li>
+<li><p>隐藏类：运行期间，V8 会将创建的对象与隐藏类关联起来，以跟踪它们的属性特征。能够共享相同隐藏类的对象性能会更好。</p>
+<ul>
+<li>因此尽可能避免 JS 的先创建后补充式动态属性赋值，在构造函数中一次性声明所有属性。</li>
+<li><code>delete</code> 关键字也会造成动态添加属性一样的后果。</li>
+</ul>
+</li>
+</ul>
+<h4 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h4><ul>
+<li>意外声明全局变量</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">setName</span>(<span class="params"></span>) &#123;</span><br><span class="line">name = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>定时器通过闭包引用外部变量</p>
+</li>
+<li><p>JS 闭包</p>
+</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> outer = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;Jake&#x27;</span>;</span><br><span class="line"><span class="comment">// 只要返回函数存在就不能清理 name</span></span><br><span class="line"><span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line"><span class="keyword">return</span> name;</span><br><span class="line">&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="静态分配与对象池"><a href="#静态分配与对象池" class="headerlink" title="静态分配与对象池"></a>静态分配与对象池</h4><blockquote>
+<p>极端的优化形式，一般不多见也不必考虑。</p>
+</blockquote>
+<ul>
+<li>为了减少 GC 次数。</li>
+<li>减少对象更替速度，比如某些情况下不要动态创建矢量对象，只修改一个对象。</li>
+<li>使用对象池：对象不存在的时候创建新的，存在的时候复用。</li>
+<li>由于 JS 数组动态可变，初始化的时候尽量创建一个大小够用的数组，防止删除后再创建而引来 GC。</li>
+</ul>
+
+  </div>
+</article>
+
+
+    <div class="blog-post-comments">
+        <div id="utterances_thread">
+            <noscript>加载评论需要在浏览器启用 JavaScript 脚本支持。</noscript>
+        </div>
+    </div>
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects/">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E5%A7%8B%E5%80%BC%E4%B8%8E%E5%BC%95%E7%94%A8%E5%80%BC"><span class="toc-number">1.</span> <span class="toc-text">原始值与引用值</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E5%80%BC"><span class="toc-number">1.1.</span> <span class="toc-text">复制值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="toc-number">1.2.</span> <span class="toc-text">传递参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.3.</span> <span class="toc-text">确定类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%EF%BC%88Context%EF%BC%89%E4%B8%8E%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.4.</span> <span class="toc-text">执行上下文（Context）与作用域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE%E5%A2%9E%E5%BC%BA"><span class="toc-number">1.5.</span> <span class="toc-text">作用域链增强</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">1.6.</span> <span class="toc-text">变量声明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">2.</span> <span class="toc-text">垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0%E6%B8%85%E7%90%86"><span class="toc-number">2.1.</span> <span class="toc-text">标记清理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0"><span class="toc-number">2.2.</span> <span class="toc-text">引用计数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%A7%E8%83%BD"><span class="toc-number">2.3.</span> <span class="toc-text">性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">2.4.</span> <span class="toc-text">内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-number">2.4.1.</span> <span class="toc-text">内存泄漏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%88%86%E9%85%8D%E4%B8%8E%E5%AF%B9%E8%B1%A1%E6%B1%A0"><span class="toc-number">2.4.2.</span> <span class="toc-text">静态分配与对象池</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&text=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&is_video=false&description=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存&body=Check out this article: http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&title=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&name=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.colanns.me/2022/03/04/JavaScript%20%E7%AC%94%E8%AE%B0/%E7%AC%AC%204%20%E7%AB%A0.%20%E5%8F%98%E9%87%8F%E3%80%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98/&t=JavaScript 红宝书笔记 - 第 4 章.变量、作用域与内存"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2020-2022
+    Colanns
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">首页</a></li><!--
+     --><!--
+       --><li><a href="/about/">关于</a></li><!--
+     --><!--
+       --><li><a href="/archives/">归档</a></li><!--
+     --><!--
+       --><li><a href="/projects/">项目</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GRKJ8VL35F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-GRKJ8VL35F');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "accaef8c611f45e6acc7495a8b1ba32c"}'></script>
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+    <script type="text/javascript">
+      var utterances_repo = 'colasama/Colanns-Blog-Comments';
+      var utterances_issue_term = 'pathname';
+      var utterances_label = 'Comment';
+      var utterances_theme = 'github-dark';
+
+      (function(){
+          var script = document.createElement('script');
+
+          script.src = 'https://utteranc.es/client.js';
+          script.setAttribute('repo', utterances_repo);
+          script.setAttribute('issue-term', 'pathname');
+          script.setAttribute('label', utterances_label);
+          script.setAttribute('theme', utterances_theme);
+          script.setAttribute('crossorigin', 'anonymous');
+          script.async = true;
+          (document.getElementById('utterances_thread')).appendChild(script);
+      }());
+  </script>
+
+</body>
+</html>
